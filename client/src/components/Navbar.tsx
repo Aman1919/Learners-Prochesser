@@ -33,20 +33,28 @@ const Navbar = () => {
 
         {/* Navigation Links for larger screens */}
         <div className="hidden sm:flex items-center space-x-4">
-          <Link to="/" className="text-black hover:text-yellow-500">Home</Link>
-          <a href="https://prochesser.com" className="text-black hover:text-yellow-500">Gamers</a>
+        {!user || (user.Subscription && user.Subscription.length === 0) && (<Link to="/" className="text-black hover:text-yellow-500" onClick={toggleMenu}>Home</Link>)}
 
           {user ? (
             <>
               {user.Subscription&&user.Subscription?.length > 0 && (
                 <Link to="/dashboard" className="text-black hover:text-yellow-500">Dashboard</Link>
               )}
+              <li>
+                <Link
+                  to="/profile"
+                  className="text-black hover:text-yellow-500"
+                >
+                 Profile
+                </Link>
+              </li>
               <button
                 onClick={handleLogoutClick}
                 className="bg-yellow-500 text-black font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:bg-yellow-400"
               >
                 Logout
               </button>
+
             </>
           ) : (
             <>
@@ -73,16 +81,13 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div className={`sm:hidden p-4 bg-gray-100 ${isOpen ? 'block' : 'hidden'}`}>
         <ul className="flex flex-col space-y-4">
-          <li>
-            <Link to="/" className="text-black hover:text-yellow-500" onClick={toggleMenu}>
-              Home
-            </Link>
-          </li>
-          <li>
-            <a href="https://prochesser.com" className="text-black hover:text-yellow-500" onClick={toggleMenu}>
-              Gamers
-            </a>
-          </li>
+        {!user || (user.Subscription && user.Subscription.length === 0) && (
+  <li>
+    <Link to="/" className="text-black hover:text-yellow-500" onClick={toggleMenu}>
+      Home
+    </Link>
+  </li>
+)}
 
           {/* Add Login and Create Account to mobile menu */}
           {!user ? (
@@ -107,6 +112,15 @@ const Navbar = () => {
               </li>
             </>
           ) : (
+           <>
+           <li>
+                <Link
+                  to="/profile"
+                  className="text-black hover:text-yellow-500"
+                >
+                 Profile
+                </Link>
+              </li>
             <li>
               <button
                 onClick={() => {
@@ -117,7 +131,7 @@ const Navbar = () => {
               >
                 Logout
               </button>
-            </li>
+            </li></>
           )}
         </ul>
       </div>

@@ -14,7 +14,7 @@ const SubscriptionPrompt = () => {
   });
   if(!packageData)return <div>No Package </div>
   return (
-    <div className="subscription bg-black text-white mt-32 md:mt-16 lg:mt-16 px-4 sm:px-6 lg:px-8 py-8 rounded-lg shadow-lg">
+    <div className="subscription bg-black text-white  px-4 sm:px-6 lg:px-8 py-8 rounded-lg shadow-lg">
       <h2 className="text-3xl font-bold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-blue-500 animate-pulse drop-shadow-md">
         Complete Your Purchase to Start Learning
       </h2>

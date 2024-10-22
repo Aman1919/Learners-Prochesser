@@ -6,12 +6,13 @@ import cryptoPaymentRouter from "./routes/payments/crypto";
 import { BACKEND_ROUTE } from './constants';
 import cors from "cors";
 // import { checkTransactionStatus } from './controllers/payments/crypto';
+import {connect} from "./redis"
 const cron = require('node-cron');
 const app = express();
 const PORT  = process.env.PORT
 app.use(express.json());
 app.use(cors());
-
+connect();
 app.get('/',(req:Request,res:Response)=>{
     res.send("hellow")
 })

@@ -1,7 +1,7 @@
 export const REDIRECT_URL = process.env.FRONTEND_URL
   ? `${process.env.FRONTEND_URL}/payment`
-  : "http://localhost:5173/payment";
-export const FRONTEND_URL = process.env.FRONTEND_URL ?? "http://localhost:5173";
+  : "https://5173-aman1919-prochesser-ajd2h3iqw3f.ws-us116.gitpod.io/payment";
+export const FRONTEND_URL = process.env.FRONTEND_URL ?? "https://5173-aman1919-prochesser-ajd2h3iqw3f.ws-us116.gitpod.io";
 
 export const INTASEND_PUBLISHABLE_KEY =
   process.env.INTASEND_PUBLISHABLE_KEY ?? "";

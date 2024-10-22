@@ -31,7 +31,7 @@ const IntaSend   = require("intasend-node")
       return res.status(404).json({ error: "Package not found." });
     }
     const subscription = user.subscriptions
-  if(subscription.length>0){
+  if(subscription&&subscription.length>0){
  return res.status(200).json({message:"Already have this  Active Subscription",subscription,user})
   }
     // Extract necessary information
