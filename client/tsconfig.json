@@ -1,0 +1,16 @@
+{
+  "files": [],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    // other options...
+    "composite": true, // Add this line if it's a project reference
+  },
+  "include": [
+    "src/**/*",
+    "src/mdx.d.ts"
+  ],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}

@@ -1,8 +1,8 @@
 import express,{Request,Response} from 'express';
-import authRoutes from './routes/authRoutes';
-import paymentRouter from "./routes/mpesapaymentRoutes"
-import packagesRouter from "./routes/packageRoutes"
-import cryptoPaymentRouter from "./routes/crypto";
+import authRoutes from './routes/auth/authRoutes';
+import paymentRouter from "./routes/payments/mpesapaymentRoutes"
+import packagesRouter from "./routes/packages/packageRoutes"
+import cryptoPaymentRouter from "./routes/payments/crypto";
 import { BACKEND_ROUTE } from './constants';
 import cors from "cors";
 // import { checkTransactionStatus } from './controllers/payments/crypto';

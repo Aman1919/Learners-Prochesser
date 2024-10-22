@@ -34,6 +34,18 @@ export const authenticateJWT = async (req: any, res: any, next: any) => {
         firstname: true,
         lastname: true,
         email: true,
+        Subscription: {
+          where: {
+            status: 'ACTIVE',
+            AND: [
+          { startDate: { lte: new Date() } }, 
+          { endDate: { gt: new Date() } }     
+            ]
+          }
+          , include: {
+          package:true
+          }
+        }
       },
     });
     
@@ -41,21 +53,7 @@ export const authenticateJWT = async (req: any, res: any, next: any) => {
       return res.status(403).json({ message: "User not found" });
     }
     
-    const oneMonthAgo = new Date();
-    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-
-    const subscriptions = await prisma.subscription.findMany({
-      where: {
-        userId: user.id,
-        status: 'ACTIVE',
-        AND: [
-          { startDate: { lte: new Date() } }, 
-          { endDate: { gt: new Date() } }     
-        ]
-      },
-    });
-
-    req.user = { ...user, subscriptions };
+    req.user = { ...user};
     next();
   } catch (error) {
     console.error(error);
