@@ -1,24 +1,19 @@
-import { useState } from "react";
 import { packages } from "../constant";
 import { useRecoilValue } from "recoil";
 import { userState } from "../state/userState";
 import { Link } from "react-router-dom";
-import PaymentPopup from "./popup";
 import { Package } from "../types/schema";
 // Define types for Package and User if not already defined
 
 const LearningSection = () => {
   const user = useRecoilValue(userState);
-  const [packag, setPackag] = useState<Package | null>(null); // Specify type for state
 
   return (
     <section
       id="learningpackages"
       className="learning-section py-12 bg-black min-h-screen"
     >
-      {packag && user && (
-        <PaymentPopup user={user} packag={packag} />
-      )}
+      
       <h2 className="text-4xl font-bold text-center mb-12">
         Our Learning Packages
       </h2>

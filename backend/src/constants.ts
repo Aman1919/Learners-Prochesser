@@ -1,5 +1,5 @@
 export const REDIRECT_URL = process.env.FRONTEND_URL
-  ? `${process.env.FRONTEND_URL}/payment`
+  ? `${process.env.FRONTEND_URL}/payment:""`
   : "https://5173-aman1919-prochesser-ajd2h3iqw3f.ws-us116.gitpod.io/payment";
 export const FRONTEND_URL = process.env.FRONTEND_URL ?? "https://5173-aman1919-prochesser-ajd2h3iqw3f.ws-us116.gitpod.io";
 

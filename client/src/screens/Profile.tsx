@@ -1,4 +1,3 @@
-import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../state/userState';
 
@@ -10,7 +9,8 @@ const Profile = () => {
     window.location.reload();
   };
 
-
+  if(!user)return <></>
+  
   return (
     <div className="profile-section bg-white shadow-lg rounded-lg p-8 flex flex-col items-center">
       {/* Profile Picture */}

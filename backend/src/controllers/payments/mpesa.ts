@@ -1,5 +1,5 @@
 import prisma from "../../prismaClient";
-import { compareHash, generateUniqueId, getFinalAmountInCurrency, isValidEmail, updateTransactionChecks } from "../../utils";
+import {  generateUniqueId, getFinalAmountInCurrency, isValidEmail, updateTransactionChecks } from "../../utils";
 import { FRONTEND_URL, INTASEND_IS_TEST, INTASEND_PUBLISHABLE_KEY, INTASEND_SECRET_KEY, REDIRECT_URL } from "../../constants";
 const IntaSend   = require("intasend-node")
 

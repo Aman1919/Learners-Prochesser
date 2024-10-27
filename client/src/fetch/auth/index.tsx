@@ -1,7 +1,47 @@
 import { BACKEND_URL } from "../../constant";
 import axios from "axios";
-export async function fetchLogin(email, password, setError) {
+
+// Interfaces for type definitions
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword?: string;
+}
+
+interface LoginResponse {
+  token: string;
+}
+
+interface SignupResponse {
+  token: string;
+}
+
+interface ForgotPasswordResponse {
+  message: string;
+}
+
+interface UpdatePasswordResponse {
+  message: string;
+}
+
+// Utility functions
+const handleError = (error: unknown, defaultMessage: string): string => {
+  if (axios.isAxiosError(error) && error.response) {
+    return error.response.data.message || defaultMessage;
+  }
+  return defaultMessage;
+};
+
+// Login function
+export async function fetchLogin(
+  email: string,
+  password: string,
+  setError: (message: string) => void
+): Promise<void> {
   const url = `${BACKEND_URL}/api/auth/login`;
+  
   if (!email || !password) {
     setError("Please fill out both fields.");
     return;
@@ -9,22 +49,22 @@ export async function fetchLogin(email, password, setError) {
   setError("");
 
   try {
-    const response = await axios.post(url, {
-      email,
-      password,
-    });
-
-    const token = response.data.token; // Store the token from the response
-    console.log(response.data);
+    const response = await axios.post<LoginResponse>(url, { email, password });
+    const { token } = response.data;
     localStorage.setItem("token", token);
     window.location.href = "/";
   } catch (error) {
-    setError("Invalid email or password.");
+    setError(handleError(error, "Invalid email or password."));
     console.error("Sign-in error:", error);
   }
 }
 
-export async function fetchSignup(formData, setError, setSuccess) {
+// Signup function
+export async function fetchSignup(
+  formData: FormData,
+  setError: (message: string) => void,
+  setSuccess: (message: string) => void
+): Promise<void> {
   if (formData.password !== formData.confirmPassword) {
     setError("Passwords do not match");
     return;
@@ -32,111 +72,83 @@ export async function fetchSignup(formData, setError, setSuccess) {
 
   try {
     const url = `${BACKEND_URL}/api/auth/signup`;
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        firstname: formData.firstName,
-        lastname: formData.lastName,
-        email: formData.email,
-        password: formData.password,
-      }),
+    const response = await axios.post<SignupResponse>(url, {
+      firstname: formData.firstName,
+      lastname: formData.lastName,
+      email: formData.email,
+      password: formData.password,
     });
 
-    const data = await response.json();
-    console.log(data);
-
-    if (!response.ok) {
-      throw new Error(data.message || "Failed to register");
-    }
-
-    localStorage.setItem("token", data.token);
+    const { token } = response.data;
+    localStorage.setItem("token", token);
     setSuccess("User registration successful!");
     window.location.href = "/";
   } catch (error) {
-    setError(error.message);
-    alert(error.message || "Some error occured");
+    setError(handleError(error, "Failed to register"));
   }
 }
 
-export async function fetchForgotPassword(email) {
+// Forgot Password function
+export async function fetchForgotPassword(email: string): Promise<void> {
   const url = `${BACKEND_URL}/api/auth/forgotpassword`;
 
   try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Something went wrong");
-    }
-
-    const data = await response.json();
-    alert(data.message);
-    console.log(data);
+    const response = await axios.post<ForgotPasswordResponse>(url, { email });
+    alert(response.data.message);
   } catch (error) {
-    alert(error.message || "An error occurred. Please try again.");
-    console.error(error);
+    alert(handleError(error, "An error occurred. Please try again."));
+    console.error("Forgot password error:", error);
   }
 }
 
-export async function fetchUpdatePassword(token, pass) {
+// Update Password function
+export async function fetchUpdatePassword(
+  token: string,
+  newPassword: string
+): Promise<void> {
   if (!token) {
-    alert("url is not right");
+    alert("URL is not valid");
     return;
   }
+  
   const url = `${BACKEND_URL}/api/auth/updateforgotpassword`;
+
   try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ token, newPassword: pass }),
+    const response = await axios.post<UpdatePasswordResponse>(url, {
+      token,
+      newPassword,
     });
 
-    const result = await response.json();
-
-    if (response.ok) {
+    if (response.status === 200) {
       alert("Password reset successfully");
       window.location.href = "/login";
     } else {
-      alert(result.message || "An error occurred");
+      alert(response.data.message || "An error occurred");
     }
-  } catch (err) {
-    console.log(err);
-    
+  } catch (error) {
     alert("Failed to reset password");
+    console.error("Update password error:", error);
   }
 }
 
-export async function verifyResetPasswordToken(token, setError, setEmail) {
-  console.log(token);
+// Verify Reset Password Token function
+export async function verifyResetPasswordToken(
+  token: string,
+  setError: (message: string) => void,
+  setEmail: (email: string) => void
+): Promise<void> {
+  const url = `${BACKEND_URL}/api/auth/verifyResetToken/${token}`;
 
   try {
-    const response = await fetch(
-      `${BACKEND_URL}/api/auth/verifyResetToken/${token}`,
-      {
-        method: "GET",
-      },
-    );
+    const response = await axios.get<{ email: string; message?: string }>(url);
 
-    const result = await response.json();
-
-    console.log(result);
-    if (!response.ok) {
-      setError(result.message || "Invalid or expired token");
+    if (response.status === 200) {
+      setEmail(response.data.email);
     } else {
-      setEmail(result.email);
+      setError(response.data.message || "Invalid or expired token");
     }
-  } catch (err) {
-    console.log("Failed to verify token", err);
+  } catch (error) {
+    setError("Failed to verify token");
+    console.error("Token verification error:", error);
   }
 }

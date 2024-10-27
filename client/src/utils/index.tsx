@@ -1,5 +1,12 @@
-/* eslint-disable react/prop-types */
-export function TabButton({title,activeTab,setActiveTab,tabKey}) {
+
+interface TabButtonProps {
+  title: string;
+  activeTab: string;
+  setActiveTab: (tabKey: string) => void;
+  tabKey: string;
+}
+
+export function TabButton({ title, activeTab, setActiveTab, tabKey }: TabButtonProps): JSX.Element {
   return (
     <div
       className={`py-2 px-4 border-b-4 transition-colors cursor-pointer text-sm md:text-base w-full md:w-[48%] text-center duration-300 ${
@@ -11,5 +18,5 @@ export function TabButton({title,activeTab,setActiveTab,tabKey}) {
     >
       {title}
     </div>
-);
-}  
+  );
+}
