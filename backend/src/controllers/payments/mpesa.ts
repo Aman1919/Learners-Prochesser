@@ -249,7 +249,7 @@ export const successFullTransaction = async (req: any, res: any) => {
 export const validateTransaction = async (req:any, res: any) => {
   try {
     const { api_ref, challenge, state } = req.body;
-    const INSTASEND_CHALLENGE = ''
+    const INSTASEND_CHALLENGE = 'DEPOSIT'
     console.log(
       "--------------------------------------------------------------------------------Triggering webhook for deposits--------------------------------------------------------------------------------------------"
     );

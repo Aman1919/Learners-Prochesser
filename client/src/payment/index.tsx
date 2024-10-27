@@ -30,9 +30,8 @@ export default function Payment() {
 
         const data = response.data;
 
-        // redirect to /account if success
         if (data) {
-          navigate("/");
+          window.location.href="/dashboard";
         }
       } catch (error) {
         console.error(`Error during fetching:`, error);
