@@ -9,7 +9,6 @@ const IntaSend   = require("intasend-node")
  export const getUrl = async (req: any, res: any) => {
   const {  name } = req.body;
   console.log(req.user);
-  
   const user = req.user;
   const userId = user.id;
   console.log(user,name);
@@ -28,7 +27,7 @@ const IntaSend   = require("intasend-node")
     });
     
     if (!packag) {
-      return res.status(404).json({ error: "Package not found." });
+      return res.status(404).json({ error: "Package not found."});
     }
     const subscription = user.subscriptions
   if(subscription&&subscription.length>0){
@@ -55,6 +54,7 @@ const IntaSend   = require("intasend-node")
       INTASEND_SECRET_KEY,
       INTASEND_IS_TEST
     );
+
     const collection = intasend.collection();
     const apiRef = generateUniqueId();
     const secretToken = generateUniqueId();
@@ -67,6 +67,10 @@ const IntaSend   = require("intasend-node")
 
     try {
       // Initiating the charge
+    console.log(`${REDIRECT_URL}/${secretToken}/${apiRef}/${mode}`)
+      if (!first_name || !last_name || !email || !amount || !FRONTEND_URL) {
+        return res.status(400).json({ error: "Missing required payment information" });
+      }
       const resp = await collection.charge({
         first_name,
         last_name,
@@ -78,6 +82,7 @@ const IntaSend   = require("intasend-node")
         api_ref:apiRef,
         redirect_url: `${REDIRECT_URL}/${secretToken}/${apiRef}/${mode}`,
       });
+
       console.log(resp);
       
       // Store transaction details in the database
@@ -112,6 +117,9 @@ const IntaSend   = require("intasend-node")
       });
     } catch (error) {
       console.error(`Charge error:`, error);
+      if (error instanceof Buffer) {
+        console.error("Charge error:", error.toString('utf8'));
+      }
       return res.status(500).json({ message: "Invalid Request", status: "error" });
     }
   } catch (error) {
