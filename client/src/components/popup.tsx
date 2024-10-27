@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BACKEND_URL } from "../constant";
-import { GetIntaSendUrl } from "../fetch/payments/index";
+import { getIntaSendUrl } from "../fetch/payments/index";
 import axios from "axios";
 
 interface Package {
@@ -39,7 +39,7 @@ export default function PaymentPopup({ packag, user}: PaymentPopupProps) {
   // Function to handle IntaSend payment method
   const IntasendPayment = async () => {
     setClickCryptoMethod(false);
-    await GetIntaSendUrl(packag.type);
+    await getIntaSendUrl(packag.type);
   };
 
   // Function to handle Crypto deposit

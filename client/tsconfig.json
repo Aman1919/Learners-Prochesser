@@ -2,8 +2,13 @@
   "files": [],
   "compilerOptions": {
     "jsx": "react-jsx",
-    // other options...
-    "composite": true, // Add this line if it's a project reference
+    "target": "es2015",
+    "lib": ["dom", "es2015", "es2017", "esnext"],
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "composite": true, // Add thisine if it's a project reference
   },
   "include": [
     "src/**/*",

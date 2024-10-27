@@ -19,7 +19,10 @@ const ResetPassword = () => {
   //updating password
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    
+    if(!id){
+      window.location.href = "/register";
+      return;
+    }
     if (password !== rePassword) {
       setError("Passwords do not match");
       return;
