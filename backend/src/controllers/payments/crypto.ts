@@ -105,17 +105,11 @@ console.log(req.body)
     }
 
     // Check if the user already has an active subscription
-    const activeSubscription = user.subscriptions.find(
-      (sub: { endDate: Date; startDate: Date }) => sub.endDate > new Date()
-    );
-
-    if (activeSubscription) {
-      return res.status(200).json({
-        message: "You already have an active subscription for this package.",
-        subscription: activeSubscription,
-        user,
-      });
+    const subscription = user.subscriptions
+    if(subscription&&subscription.length>0){
+           return res.status(200).json({message:"Already have this  Active Subscription",subscription,user})
     }
+
 
     const amount = packag.price;
 

@@ -1,9 +1,9 @@
 import axios from 'axios';
 import crypto,{ randomUUID } from 'crypto';
 import jwt from 'jsonwebtoken';
-import { BCRYPT_SECRET_KEY, CURRENCY_RATE_URL, INTASEND_PUBLISHABLE_KEY,  INTASEND_IS_TEST, INTASEND_SECRET_KEY } from './constants';
+import { BCRYPT_SECRET_KEY, CURRENCY_RATE_URL, INTASEND_PUBLISHABLE_KEY,  INTASEND_IS_TEST, INTASEND_SECRET_KEY } from '../constants';
 import bcrypt from "bcrypt";
-import prisma from './prismaClient';
+import prisma from '../prismaClient';
 const JWT_SECRET = process.env.JWT_SECRET?? "SECRET_KEY"
 
 export const verifyToken = (token: string) => {

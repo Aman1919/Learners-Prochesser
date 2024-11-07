@@ -17,6 +17,7 @@ export const authenticateJWT = async (req: any, res: any, next: any) => {
   const authHeader = req.headers["authorization"];
   
   if (!authHeader) {
+    console.log("no auth header")
     return res.status(401).json({ message: "Unauthorized: No token provided" });
   }
   

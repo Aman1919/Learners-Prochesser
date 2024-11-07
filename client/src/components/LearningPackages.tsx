@@ -37,7 +37,7 @@ const LearningSection = () => {
               )}
             </h3>
             <p className="text-xl mb-4 font-bold">{packageData.price}</p>
-            <p className="text-gray-900 mb-6 hover:text-white">
+            <p className="text-gray-900 mb-6 hover:text-white text-justify">
               {packageData.description}
             </p>
 

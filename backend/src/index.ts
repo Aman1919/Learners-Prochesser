@@ -3,6 +3,7 @@ import authRoutes from './routes/auth/authRoutes';
 import paymentRouter from "./routes/payments/mpesapaymentRoutes"
 import packagesRouter from "./routes/packages/packageRoutes"
 import cryptoPaymentRouter from "./routes/payments/crypto";
+import PaypalRouter from "./routes/payments/paypal"
 import { BACKEND_ROUTE } from './constants';
 import cors from "cors";
 // import { checkTransactionStatus } from './controllers/payments/crypto';
@@ -20,6 +21,7 @@ app.get('/',(req:Request,res:Response)=>{
 app.use(`/${BACKEND_ROUTE}/cryptopayment`,cryptoPaymentRouter);
 app.use(`/${BACKEND_ROUTE}/auth`, authRoutes);
 app.use(`/${BACKEND_ROUTE}/payment`,paymentRouter);
+app.use(`/${BACKEND_ROUTE}/payments/paypal`, PaypalRouter);
 app.use(`/${BACKEND_ROUTE}/packag`,packagesRouter);
 
 // cron.schedule('* * * * *', async () => {

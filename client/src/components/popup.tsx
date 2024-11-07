@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BACKEND_URL } from "../constant";
 import { getIntaSendUrl } from "../fetch/payments/index";
 import axios from "axios";
+import PaypalButton from "./paypal/paypalbtn";
 
 interface Package {
   name: string;
@@ -91,7 +92,7 @@ export default function PaymentPopup({ packag, user}: PaymentPopupProps) {
           >
             Pay with IntaSend
           </button>
-
+          <PaypalButton packagName={packag.type} token={token}/>
           {/* Crypto Payment Button */}
           <button
             onClick={() => setClickCryptoMethod(!clickCryptoMethod)}
