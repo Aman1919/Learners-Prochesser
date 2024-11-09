@@ -38,4 +38,26 @@ export async function onApproveCallback(data: any,token:any) {
     return `Transaction could not be processed: ${error.error}`;
   }
 }
+ // // Function to create PayPal order by calling backend
+export const createOrderCallback = async (token:string,packagName:string,setMessage:(arg:string)=>void) => {
+  console.log(token)
+  try {
+
+    const response = await fetch(`${BACKEND_URL}/api/payments/paypal/get-url`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify({ name:packagName }), // Include package or other data as needed
+    });
+
+    const data = await response.json();
+    console.log(data.url)
+    return data.orderId;  // Return approval URL to the PayPal button
+  } catch (error) {
+    console.error("Error creating order:", error);
+    setMessage("Could not create order.");
+  }
+};
 

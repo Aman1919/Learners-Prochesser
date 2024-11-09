@@ -1,65 +1,63 @@
-import { ReactNode } from 'react';
+import { ReactNode, FC } from 'react';
 import { useRecoilValue } from 'recoil';
 import { userState, isLoadingState } from './state/userState';
 import { Navigate } from 'react-router-dom';
 import Spinner from './components/spinner';
 
-interface PrivateRouteProps {
+interface RouteProps {
   element: ReactNode;
 }
 
-export const PrivateRoute: React.FC<PrivateRouteProps> = ({ element }) => {
-  const user = useRecoilValue(userState);
-  const isLoading = useRecoilValue(isLoadingState);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
-
-  return user ? <>{element}</> : <Navigate to="/signin" />;
-};
-
-interface PublicRouteProps {
-  element: ReactNode;
+interface LoadingWrapperProps {
+  isLoading: boolean;
+  children: ReactNode;
 }
 
-export const PublicRoute: React.FC<PublicRouteProps> = ({ element }) => {
+const LoadingWrapper: FC<LoadingWrapperProps> = ({ isLoading, children }) => (
+  isLoading ? <Spinner /> : <>{children}</>
+);
+
+export const PrivateRoute: FC<RouteProps> = ({ element }) => {
   const user = useRecoilValue(userState);
   const isLoading = useRecoilValue(isLoadingState);
 
-  if (isLoading) {
-    return <Spinner />;
-  }
-
-  return user ? <Navigate to="/" /> : <>{element}</>;
+  return (
+    <LoadingWrapper isLoading={isLoading}>
+      {user ? <>{element}</> : <Navigate to="/signin" />}
+    </LoadingWrapper>
+  );
 };
 
-export const SubscriptionPrivateRoutes: React.FC<PrivateRouteProps> = ({ element }) => {
+export const PublicRoute: FC<RouteProps> = ({ element }) => {
   const user = useRecoilValue(userState);
   const isLoading = useRecoilValue(isLoadingState);
 
-  if (isLoading) {
-    return <Spinner />;
-  }
-  if (!user) return <Navigate to="/signin" />;
-  if (user && (!user.Subscription || user.Subscription.length === 0)) {
-    return <Navigate to="/" />;
-  }
-
-  return <>{element}</>;
+  return (
+    <LoadingWrapper isLoading={isLoading}>
+      {user ? <Navigate to="/" /> : <>{element}</>}
+    </LoadingWrapper>
+  );
 };
 
-export const SubscriptionPublicRoutes: React.FC<PublicRouteProps> = ({ element }) => {
+export const SubscriptionPrivateRoute: FC<RouteProps> = ({ element }) => {
   const user = useRecoilValue(userState);
   const isLoading = useRecoilValue(isLoadingState);
 
-  if (isLoading) {
-    return <Spinner />;
-  }
-  if (!user || (user && (!user.Subscription || user.Subscription.length === 0))) {
-    return <>{element}</>;
-  }
-  
-  return <Navigate to='/dashboard' />;
+  return (
+    <LoadingWrapper isLoading={isLoading}>
+      {!user ? <Navigate to="/signin" /> : 
+      user.Subscription && user.Subscription.length > 0 ? <>{element}</> : <Navigate to="/" />}
+    </LoadingWrapper>
+  );
 };
 
+export const SubscriptionPublicRoute: FC<RouteProps> = ({ element }) => {
+  const user = useRecoilValue(userState);
+  const isLoading = useRecoilValue(isLoadingState);
+
+  return (
+    <LoadingWrapper isLoading={isLoading}>
+      {user && user.Subscription && user.Subscription.length > 0 ? <Navigate to="/dashboard" /> : <>{element}</>}
+    </LoadingWrapper>
+  );
+};

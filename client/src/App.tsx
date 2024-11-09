@@ -13,7 +13,7 @@ import LearningPackages from "./components/LearningPackages";
 import Register from "./screens/Register";
 // import WelcomePage from "./screens/WelcomePage";
 import Profile from "./screens/Profile";
-import {  PublicRoute, SubscriptionPrivateRoutes,SubscriptionPublicRoutes } from "./routes";
+import {  PublicRoute, SubscriptionPrivateRoute,SubscriptionPublicRoute } from "./routes";
 import { userState, fetchUserState, isLoadingState } from "./state/userState";
 import Payment from "./payment";
 import Spinner from "./components/spinner";
@@ -66,16 +66,16 @@ function App() {
           path="/reset-password/:id"
           element={<PublicRoute element={<ResetPassword/>} />}
         />
-        <Route path="/" element={<SubscriptionPublicRoutes element={<LearningPackages/>} />} />
+        <Route path="/" element={<SubscriptionPublicRoute element={<LearningPackages/>} />} />
         <Route path="/prompt/:type" element={<SubscriptionPrompt />} />
 
         <Route
           path="/dashboard"
-          element={<SubscriptionPrivateRoutes element={<Dashboard/>}/>}
+          element={<SubscriptionPrivateRoute element={<Dashboard/>}/>}
         />
         <Route
           path="/profile"
-          element={<SubscriptionPrivateRoutes element={<Profile/>} />}
+          element={<SubscriptionPrivateRoute element={<Profile/>} />}
         />
         <Route
           path="/payment/:secret_token/:api_ref/:mode"
