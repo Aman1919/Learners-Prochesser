@@ -1,7 +1,7 @@
 import express from 'express';
 import  {getUrl,successFullTransaction} from '../../controllers/payments/mpesa' ;
 import { authenticateJWT } from '../../middlewares/authMiddleware';
-import { addWebhookToQueue } from '../../queue/webhooksQueue';
+import { addWebhookToQueue } from '../../webhook/mpesa';
 const router = express.Router();
 
 router.post('/get-url', authenticateJWT,getUrl);

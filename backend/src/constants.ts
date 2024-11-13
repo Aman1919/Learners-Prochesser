@@ -19,6 +19,9 @@ export const BACKEND_URL = process.env.BACKEND_URL ?? "";
 export const PAYPAL_BASE = process.env.PAYPAL_BASE ?? "https://api-m.sandbox.paypal.com"
 export const  PAYPAL_CLIENT_ID=process.env.PAYPAL_CLIENT_ID??""
 export const PAYPAL_CLIENT_SECRET=process.env.PAYPAL_SECRET_ID??""
+export const WEBHOOK_ID = process.env.PAYPAL_WEBHOOK_ID ?? "02J3658973138734J"
+export const CACHE_DIR = process.env.PAYPAL_CACHE_DIR ?? "."
+
 export const CRYPTO_DEPOSIT_PERCENT = process.env.CRYPTO_DEPOSIT_PERCENT
   ? Number(process.env.CRYPTO_DEPOSIT_PERCENT)
   : 0.035;

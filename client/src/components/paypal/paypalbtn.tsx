@@ -39,11 +39,14 @@ const PaypalPage = ({packagName,token}:any) => {
               height: 40,
             }}
             createOrder={()=> createOrderCallback(token,packagName,setMessage)}
-            onApprove={async (data) => setMessage(await onApproveCallback(data,token))}
+            onApprove={async (data) => {setMessage(await onApproveCallback(data,token))
+              window.location.href = "/dashboard"
+            }}
             onCancel={() => {
               console.log("Payment cancelled");
             }}
             onError={(err) => {
+              alert(err.message || "Something went wrong!!");
               console.error("Payment error:", err);
             }}
           />
