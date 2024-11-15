@@ -17,8 +17,8 @@ export const NODE_ENV = "development";
 export const BACKEND_URL = process.env.BACKEND_URL ?? "";
 
 export const PAYPAL_BASE = process.env.PAYPAL_BASE ?? "https://api-m.sandbox.paypal.com"
-export const  PAYPAL_CLIENT_ID=process.env.PAYPAL_CLIENT_ID??""
-export const PAYPAL_CLIENT_SECRET=process.env.PAYPAL_SECRET_ID??""
+export const  PAYPAL_CLIENT_ID=process.env.PAYPAL_CLIENT_ID??"ASrya6Fyjjmt8by8de3ErkS3fOWynZxK3TLPb1Cw9gkTSPCCNi6O19QE5ZczJ9hmsEofuw41Xt20KZ2D"
+export const PAYPAL_CLIENT_SECRET=process.env.PAYPAL_SECRET_ID??"EMiim0PjtczURLgy8Mb5VutjjJ-lBMRCYr5rSMds2VeSUxfnBTJkYK3T-8laKAzSL__j6nEY-5WNH9hX"
 export const WEBHOOK_ID = process.env.PAYPAL_WEBHOOK_ID ?? "02J3658973138734J"
 export const CACHE_DIR = process.env.PAYPAL_CACHE_DIR ?? "."
 

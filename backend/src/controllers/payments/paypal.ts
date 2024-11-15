@@ -3,7 +3,6 @@ import { PAYPAL_BASE, PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET } from "../../const
 import paypal from "paypal-rest-sdk";
 import axios from "axios";
 import prisma from "../../prismaClient";
-import path from "path";
 
 paypal.configure({
     mode: "sandbox",
@@ -111,7 +110,7 @@ export async function completeOrder(req: any, res: any) {
                 return res.status(404).json({ error: "Transaction not found." });
             }
 
-            const result = await prisma.$transaction(async (prisma) => {
+            const result = await prisma.$transaction(async () => {
                 const updatedTransaction = await prisma.transaction.update({
                     where: { id: transaction.id },
                     data: { status: "COMPLETED" }
