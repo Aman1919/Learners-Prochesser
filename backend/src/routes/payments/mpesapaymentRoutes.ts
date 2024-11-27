@@ -1,16 +1,17 @@
 import express from 'express';
-import  {getUrl,successFullTransaction} from '../../controllers/payments/mpesa' ;
+import  {getUrl,successFullTransaction, validateTransaction} from '../../controllers/payments/mpesa' ;
 import { authenticateJWT } from '../../middlewares/authMiddleware';
 import { addWebhookToQueue } from '../../webhook/mpesa';
 const router = express.Router();
 
 router.post('/get-url', authenticateJWT,getUrl);
 router.post('/successful-transaction',successFullTransaction);
+
+router.post("/validate/transaction/webhook", validateTransaction);
 // TODO: Function is same for below routes. Can be written nicely
 router.post("/validate/transaction", async (req:any, res:any) => {
     try {
       const fullUrl = "https" + "://" + req.get("host") + req.originalUrl;
-      // const fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
       console.log("Building the full URL", fullUrl);
    console.log('kjnlknlk validate webhook')
       const webhookData = {

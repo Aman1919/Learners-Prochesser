@@ -22,17 +22,19 @@ export const PAYPAL_CLIENT_SECRET=process.env.PAYPAL_SECRET_ID??"EMiim0PjtczURLg
 export const WEBHOOK_ID = process.env.PAYPAL_WEBHOOK_ID ?? "02J3658973138734J"
 export const CACHE_DIR = process.env.PAYPAL_CACHE_DIR ?? "."
 
-export const CRYPTO_DEPOSIT_PERCENT = process.env.CRYPTO_DEPOSIT_PERCENT
-  ? Number(process.env.CRYPTO_DEPOSIT_PERCENT)
-  : 0.035;
-export const CRYPTO_MERCHANT_ID = process.env.CRYPTO_MERCHANT_ID ?? "";
-export const CRYPTO_PAYMENT_API_KEY = process.env.CRYPTO_PAYMENT_API_KEY ?? "";
-export const CRYPTO_PAYOUT_API_KEY = process.env.CRYPTO_PAYOUT_API_KEY ?? "";
-export const CRYTPOMUS_URI =
-  process.env.CRYTPOMUS_URI ?? "https://api.cryptomus.com/v1";
+// NOW Payments related constants
+export const NOWPAYMENTS_API_KEY = process.env.NOWPAYMENTS_API_KEY ?? "H3ZN6VC-QAF43VG-QMBS8CE-X2T4W7S";
+export const NOWPAYMENTS_SECRET_KEY = process.env.NOWPAYMENTS_SECRET_KEY ?? "H3ZN6VC-QAF43VG-QMBS8CE-X2T4W7S";
+export const NOWPAYMENTS_IPN_KEY = process.env.NOWPAYMENTS_IPN_KEY ?? "El8xDZ5bb1ASI8EmZTJpPZqHUMArANW9";
+export const NOWPAYMENTS_API_URL = process.env.NOWPAYMENTS_API_URL ?? "https://api-sandbox.nowpayments.io/v1";
+export const NOWPAYMENTS_EMAIL = process.env.NOWPAYMENTS_EMAIL ?? ""
+export const NOWPAYMENTS_PASS = process.env.NOWPAYMENTS_PASS ?? ""
+export const NOWPAYMENTS_IPN = process.env.NOWPAYMENTS_IPN ?? "7ixO9IKjlk3oAxV1mK7lzT/ptdKHLQna"
 
-export const BINANCE_SECRET_KEY = process.env.BINANCE_SECRET_KEY ?? "";
-export const BINANCE_API_KEY = process.env.BINANCE_API_KEY ?? "";
+
+
+export const BINANCE_SECRET_KEY = process.env.BINANCE_SECRET_KEY ?? "hXn4S1uyGS3VLzi3tP58UqGS5YqJr8KqzO7ftlMUhkCJvgONw72Gqljj0nAJcrax";
+export const BINANCE_API_KEY = process.env.BINANCE_API_KEY ?? "RfQznQa9bLsWHlP71FUugB5dl5iTAf54EiEaoIB8ZEghS7QmQNWfXaFArYi6GeUB";
 export const BACKEND_ROUTE = "api";
-export const NODEMAILER_MAIL = process.env.NODEMAILER_MAIL ?? "";
-export const NODEMAILER_PASS = process.env.NODEMAILER_PASS ?? "";
+export const NODEMAILER_MAIL = process.env.NODEMAILER_MAIL ?? "support@prochesser.com";
+export const NODEMAILER_PASS = process.env.NODEMAILER_PASS ?? "20100948$nO";

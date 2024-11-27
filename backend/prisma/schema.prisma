@@ -72,7 +72,7 @@ webhook Webhook?
 }
 
 model Webhook {
-  id            String  @id @default(cuid())
+  id            String   @id @default(cuid())
   job_id        String?
   url           String?
   invoice_id    String?
@@ -82,14 +82,17 @@ model Webhook {
   net_amount    String?
   currency      String?
   account       String?
-  apiRef       String? @unique
+  apiRef        String   @unique
   host          String?
   failed_reason String?
   failed_code   String?
-  created_at    String?
-  updated_at    String?
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+  checkout_id   String?
+  actually_paid String?
+  pay_address   String?
 
-  transaction Transaction? @relation(fields: [apiRef], references: [apiRef])
+  transaction   Transaction? @relation(fields: [apiRef], references: [apiRef])
 }
 
 model Webhook_retries {

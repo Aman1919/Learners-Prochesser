@@ -1,9 +1,12 @@
 import axios from 'axios';
 import {
+  NOWPAYMENTS_API_KEY,
+    NOWPAYMENTS_API_URL,
     PAYPAL_BASE,
     PAYPAL_CLIENT_ID,
     PAYPAL_CLIENT_SECRET,
   } from "../constants";
+import prisma from '../prismaClient';
   
   const base = PAYPAL_BASE;
   
@@ -64,5 +67,98 @@ export async function handleResponse(response: any) {
   } catch (err) {
     const errorMessage = await response.text();
     throw new Error(errorMessage);
+  }
+}
+
+export async function updateCryptoTransactionChecks(invoice_id: string) {
+  try {
+    if (!invoice_id)
+      return {
+        status: false,
+        message: "Invoice ID not provided",
+      };
+
+    // Add NOWpayment conditions here
+    const response = await axios.get(
+      `${NOWPAYMENTS_API_URL}/payment/${invoice_id}`,
+      {
+        headers: {
+          "x-api-key": NOWPAYMENTS_API_KEY,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const resp = response.data;
+
+    if (!resp || !resp?.payment_status) {
+      return {
+        status: false,
+        message: "Transaction not found in NOWPayments",
+      };
+    }
+
+    if (resp.payment_status !== "finished") {
+      // Don't update the DB and send a error message
+      return {
+        status: false,
+        message: "Transaction is incomplete in NOWPayments",
+      };
+    }
+
+    // If it is complete
+    // Check in DB if the status is PENDING
+    const transaction = await prisma.webhook.findFirst({
+      where: {
+        invoice_id,
+      },
+      select: {
+        invoice_id: true,
+        transaction: {
+          select: {
+            apiRef: true,
+            status: true,
+            userId: true,
+            finalAmountInUSD: true,
+            id: true,
+            platform_charges: true,
+          },
+        },
+      },
+    });
+
+    if (!transaction || !transaction.transaction) {
+      return {
+        status: false,
+        message: "Transaction not found",
+      };
+    }
+
+    // If status not pending return error
+    if (
+      !transaction.transaction.status ||
+      transaction.transaction.status !== "PENDING"
+    ) {
+      return {
+        status: false,
+        message: "Transaction already completed or cancelled",
+      };
+    }
+
+    // Update transaction it as successful
+    await prisma.$transaction([
+      //update the transaction
+    ]);
+
+    return {
+      status: true,
+      message: resp,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: false,
+      message: "Internal Server Error",
+    };
   }
 }
