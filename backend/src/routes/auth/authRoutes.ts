@@ -21,7 +21,6 @@ router.post("/login", validateLogin, Login);
 router.get("/refresh", authenticateJWT, refresh);
 router.get(`/verify/:token`, verifyPasswordToken);
 router.post("/forgotpassword", ForgotPassword);
-router.post("/newsletter", ForgotPassword);
 router.get("/verifyResetToken/:token", verifyResetToken);
 router.post("/updateforgotpassword", resetPassword);
 

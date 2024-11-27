@@ -24,9 +24,9 @@ const [email, setEmail] = useState<string>("");
   };
 
   return (
-    <section className="pt-32 relative w-screen bg-black text-black py-16 px-6 mx-auto">
+    <section className="pt-32 relative w-screen bg-black h-screen py-16 px-6 mx-auto">
  
-    <div className="flex justify-center items-center h-120 mt- bg-black">
+    <div className="flex justify-center items-center mt- bg-black">
       <form onSubmit={handleSubmit} className="bg-black p-8 text-white rounded shadow-md w-96">
         <h2 className="text-2xl font-bold mb-6 text-center text-yellow-500">Forgot Password</h2>
         
@@ -54,7 +54,7 @@ const [email, setEmail] = useState<string>("");
         
         <div className="text-center mt-4">
           <p className="text-gray-400 text-sm">
-             <Link to="/login" className="text-yellow-500 hover:underline hover:text-yellow-600 ">or Login?</Link>
+             <Link to="/signin" className="text-yellow-500 hover:underline hover:text-yellow-600 ">or Login?</Link>
           </p>
         </div>
       </form>
