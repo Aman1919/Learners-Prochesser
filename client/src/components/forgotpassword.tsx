@@ -24,43 +24,56 @@ const [email, setEmail] = useState<string>("");
   };
 
   return (
-    <section className="pt-32 relative w-screen bg-black text-black py-16 px-6 mx-auto">
- 
-    <div className="flex justify-center items-center h-120 mt- bg-black">
-      <form onSubmit={handleSubmit} className="bg-black p-8 text-white rounded shadow-md w-96">
-        <h2 className="text-2xl font-bold mb-6 text-center text-yellow-500">Forgot Password</h2>
-        
-        <div className="mb-4">
-          <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
-            Email:
-          </label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={email}
-            onChange={(e)=>setEmail(e.target.value)}
-            className="w-full px-3 py-2 border rounded shadow-sm focus:outline-none focus:border-yellow-500"
-            required
-          />
-        </div>
-        
-        <button
-          type="submit"
-          className="w-full bg-yellow-500 font-semibold text-black py-2 rounded hover:bg-yellow-600 hover:text-white transition-colors"
+    <section className="pt-32 relative w-full bg-black min-h-screen text-white py-16 px-6">
+  <div className="flex justify-center items-center w-full max-w-md mx-auto  rounded-lg shadow-lg">
+    <form 
+      onSubmit={handleSubmit} 
+      className="w-full p-8  rounded-lg text-white shadow-md"
+    >
+      <h2 className="text-3xl font-bold mb-6 text-center whitespace-nowrap text-yellow-500">
+        Forgot Password
+      </h2>
+      
+      <div className="m-auto mb-6">
+        <label 
+          htmlFor="email" 
+          className="block text-sm font-semibold text-gray-300 mb-2"
         >
-          Send email
-        </button>
-        
-        <div className="text-center mt-4">
-          <p className="text-gray-400 text-sm">
-             <Link to="/login" className="text-yellow-500 hover:underline hover:text-yellow-600 ">or Login?</Link>
-          </p>
-        </div>
-      </form>
-    </div>
-    
-    </section>
+          Email Address:
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full px-4 py-2 border border-gray-700 rounded-lg bg-gray-800 text-white focus:outline-none focus:border-yellow-500 focus:ring focus:ring-yellow-500"
+          required
+        />
+      </div>
+      
+      <button
+        type="submit"
+        className="w-full py-2 text-center text-black bg-yellow-500 font-medium rounded-lg hover:bg-yellow-600 transition-colors"
+      >
+        Send Email
+      </button>
+      
+      <div className="text-center mt-4">
+        <p className="text-sm text-gray-400">
+          Remembered your password?{" "}
+          <Link 
+            to="/login" 
+            className="text-yellow-500 hover:underline hover:text-yellow-600 transition-colors"
+          >
+            Login
+          </Link>
+        </p>
+      </div>
+    </form>
+  </div>
+</section>
+
   );
 };
 

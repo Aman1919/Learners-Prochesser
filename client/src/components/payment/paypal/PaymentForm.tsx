@@ -1,4 +1,4 @@
-import { BACKEND_URL } from "../../constant";
+import { BACKEND_URL } from "../../../constant";
 
 
 export async function onApproveCallback(data: any,token:any) {

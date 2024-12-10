@@ -1,6 +1,6 @@
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { useState, useEffect } from "react";
-import { BACKEND_URL } from "../../constant";
+import { BACKEND_URL } from "../../../constant";
 import { onApproveCallback ,createOrderCallback} from "./PaymentForm";
 
 const PAYPALCLIENTID = "ASrya6Fyjjmt8by8de3ErkS3fOWynZxK3TLPb1Cw9gkTSPCCNi6O19QE5ZczJ9hmsEofuw41Xt20KZ2D";

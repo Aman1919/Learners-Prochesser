@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { packages } from "../constant";
 import { FaCheckCircle } from "react-icons/fa";
-import PaymentPopup from "./popup";
+import PaymentPopup from "./payment/payment";
 import { useRecoilValue } from "recoil";
 import { userState } from "../state/userState";
 import { Package } from "../types/schema";
@@ -22,7 +22,7 @@ const SubscriptionPrompt = () => {
         N/B: Subscription for each package is valid for one month
       </p>
       <div className="flex justify-center flex-wrap-reverse">
-        <div className="package-card border rounded-3xl mb-4 p-6 bg-white shadow-lg text-black w-[50%]">
+        <div className="package-card border rounded-3xl mb-4 p-6 bg-white shadow-lg text-black max-w-[90%] w-[700px]">
           <h3 className="text-2xl font-bold mb-4">
             {packageData.name}
             {packageData.popularLabel && (
