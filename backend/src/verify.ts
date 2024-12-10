@@ -72,29 +72,3 @@ export const SendForgotPassword = async (email: string, token: string) => {
   }
 };
 
-export const SendNewsletterNotification = async (email: string) => {
-  try {
-    const mailOptions = {
-      from: `${NODEMAILER_MAIL}`,
-      to: email,
-      subject: "Welcome to Our Newsletter!",
-      html: `
-        <p>Dear Subscriber,</p>
-        <p>Thank you for subscribing to our newsletter!</p>
-        <p>Stay tuned for the latest updates, news, and special offers.</p>
-        <p>We are excited to have you on board!</p>
-        <p>If you have any questions or need assistance, feel free to reach out to our support team at ${NODEMAILER_MAIL}.</p>
-        <p>Thank you for choosing ProChesser!</p>
-          <p>Sincerely,</p>
-        <p>The ProChesser Team</p>
-        <a href="https://www.prochesser.com/">https://www.prochesser.com/</a>    
-      `,
-    };
-
-    // Send the email
-    await transporter.sendMail(mailOptions);
-    console.log(`Newsletter notification sent to ${email}`);
-  } catch (error) {
-    console.error("Error sending newsletter notification:", error);
-  }
-};

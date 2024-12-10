@@ -2,7 +2,7 @@ import prisma from "../../prismaClient";
 import { verifyToken, generateToken } from "../../utils";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { SendForgotPassword, SendNewsletterNotification } from "../../verify";
+import { SendForgotPassword } from "../../verify";
 
 export const verifyPasswordToken = async (req: any, res: any) => {
   console.log("verify");
@@ -173,16 +173,3 @@ export const verifyResetToken = async (req: any, res: any) => {
   }
 };
 
-export async function NewsLetter(req: any, res: any) {
-  try {
-    const { email } = req.body;
-    if (!email) {
-      return res.status(400).json({ message: "Email is required" });
-    }
-
-    SendNewsletterNotification(email);
-  } catch (e) {
-    console.error("Error verifying reset token:", e);
-    res.status(500).json({ message: "Internal server error" });
-  }
-}
